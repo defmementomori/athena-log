@@ -8,7 +8,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   name: 'athena-log',
   projenrcTs: true,
   repositoryUrl: 'https://github.com/defmementomori/athena-log.git',
-  // 以下はConstruct Hubでの見つけやすさのために重要
   description: 'A CDK construct to create an Athena table for querying ALB logs.',
   keywords: ['aws', 'cdk', 'athena', 'alb', 'logs', 'glue'],
   packageManager: javascript.NodePackageManager.PNPM,
