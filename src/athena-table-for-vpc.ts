@@ -94,7 +94,7 @@ export class AthenaTableForVpcFlowLog extends Construct {
             { name: 'flow_direction', type: 'string' },
             { name: 'traffic_path', type: 'int' },
           ],
-          location: s3Location, // 修正したS3ロケーションを適用
+          location: s3Location,
           inputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat',
           outputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat',
           serdeInfo: {
