@@ -21,11 +21,10 @@ export interface AthenaTableForVpcFlowLogProps {
   readonly tableName: string;
 
   /**
-   * The prefix within the S3 bucket where logs are located, before the /AWSLogs/ part.
-   * e.g., if logs are at `s3://<bucket>/your-prefix/AWSLogs/`
-   * @default No prefix is used.
+   * The prefix within the S3 bucket where logs are located.
+   * Based on your code, this should be 'flowLog'.
    */
-  readonly logPrefix?: string;
+  readonly logPrefix: string;
 }
 
 /**
@@ -41,12 +40,10 @@ export class AthenaTableForVpcFlowLog extends Construct {
     const { logBucketName, databaseName, tableName, logPrefix } = props;
 
     const stack = Stack.of(this);
-    const account = stack.account;
-    const region = stack.region;
 
-    // Standard path structure for VPC Flow Logs
-    const s3LocationPrefix = logPrefix ? `${logPrefix}/` : '';
-    const s3Location = `s3://${logBucketName}/${s3LocationPrefix}AWSLogs/${account}/vpcflowlogs/${region}/`;
+    // *** 修正点 ***
+    // ご提示いただいた通りのS3ロケーションパスを構築します。
+    const s3Location = `s3://${logBucketName}/${logPrefix}/AWSLogs/`;
 
     this.table = new glue.CfnTable(this, 'Default', {
       catalogId: stack.account,
@@ -57,13 +54,18 @@ export class AthenaTableForVpcFlowLog extends Construct {
         parameters: {
           'skip.header.line.count': '1',
         },
-        // Corrected partition keys to match the actual S3 folder structure
+        // パーティションキーは、ご提示いただいたS3パス内のフォルダ構造に合わせています。
         partitionKeys: [
+          { name: 'aws-account-id', type: 'string' },
+          { name: 'aws-service', type: 'string' },
+          { name: 'aws-region', type: 'string' },
           { name: 'year', type: 'string' },
           { name: 'month', type: 'string' },
           { name: 'day', type: 'string' },
+          { name: 'hour', type: 'string' },
         ],
         storageDescriptor: {
+          // カラム定義は、最初にいただいたコードの通りです。
           columns: [
             { name: 'version', type: 'int' },
             { name: 'account_id', type: 'string' },
@@ -95,7 +97,7 @@ export class AthenaTableForVpcFlowLog extends Construct {
             { name: 'flow_direction', type: 'string' },
             { name: 'traffic_path', type: 'int' },
           ],
-          location: s3Location,
+          location: s3Location, // 修正したS3ロケーションを適用
           inputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat',
           outputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat',
           serdeInfo: {
