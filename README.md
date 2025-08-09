@@ -1,8 +1,8 @@
 # CDK Constructs for Log Analysis with Athena
 
-[![NPM version](https://img.shields.io/npm/v/cdk-athena-log-tables.svg)](https://www.npmjs.com/package/cdk-athena-log-tables)
-[![PyPI version](https://img.shields.io/pypi/v/cdk-athena-log-tables.svg)](https://pypi.org/project/cdk-athena-log-tables)
-[![View on Construct Hub](https://constructs.dev/badge?package=cdk-athena-log-tables)](https://constructs.dev/packages/cdk-athena-log-tables)
+[![NPM version](https://img.shields.io/npm/v/cdk-athena-log.svg)](https://www.npmjs.com/package/cdk-athena-log)
+[![PyPI version](https://img.shields.io/pypi/v/cdk-athena-log.svg)](https://pypi.org/project/cdk-athena-log)
+[![View on Construct Hub](https://constructs.dev/badge?package=cdk-athena-log)](https://constructs.dev/packages/cdk-athena-log)
 
 This AWS CDK library provides a collection of ready-to-use constructs to create AWS Glue tables for various AWS service logs, making them queryable with Amazon Athena.
 
@@ -24,16 +24,16 @@ This library currently supports the following log types, with more planned for t
 
 ```bash
 # npm
-npm install cdk-athena-log-tables
+npm install cdk-athena-log
 
 # yarn
-yarn add cdk-athena-log-tables
+yarn add cdk-athena-log
 
 # pnpm
-pnpm add cdk-athena-log-tables
+pnpm add cdk-athena-log
 
 # pip (Python)
-pip install cdk-athena-log-tables
+pip install cdk-athena-log
 ```
 
 ---
@@ -45,7 +45,7 @@ Import the specific construct you need and use it in your CDK stack. You are res
 ### For Application Load Balancer (ALB) Logs
 
 ```typescript
-import { AthenaTableForAlb } from 'cdk-athena-log-tables';
+import { AthenaTableForAlb } from 'cdk-athena-log';
 
 const alb = new elbv2.ApplicationLoadBalancer(this, 'MyAlb', {
       vpc,
