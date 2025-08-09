@@ -62,7 +62,6 @@ export class AthenaTableForVpcFlowLog extends Construct {
           { name: 'hour', type: 'string' },
         ],
         storageDescriptor: {
-          // カラム定義は、最初にいただいたコードの通りです。
           columns: [
             { name: 'version', type: 'int' },
             { name: 'account_id', type: 'string' },
