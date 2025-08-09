@@ -2,10 +2,10 @@ import { awscdk, javascript } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'defmementomori',
   authorAddress: 'defmementomori@gmail.com',
-  cdkVersion: '2.1.0',
+  cdkVersion: '2.147.3',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.8.0',
-  name: 'athena-log',
+  name: 'cdk-athena-log',
   projenrcTs: true,
   repositoryUrl: 'https://github.com/defmementomori/athena-log.git',
   description: 'A CDK construct to create an Athena table for querying ALB logs.',

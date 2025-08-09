@@ -24,8 +24,8 @@ importers:
         specifier: ^8
         version: 8.39.0(eslint@9.33.0)(typescript@5.9.2)
       aws-cdk-lib:
-        specifier: 2.1.0
-        version: 2.1.0(constructs@10.0.5)
+        specifier: 2.147.3
+        version: 2.147.3(constructs@10.0.5)
       commit-and-tag-version:
         specifier: ^12
         version: 12.5.2
@@ -83,6 +83,15 @@ packages:
 
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
+
+  '@aws-cdk/asset-awscli-v1@2.2.248':
+    resolution: {integrity: sha512-26NJCkvKDWapizmnMdxBSxkk9RISv4nasZbyn4NvvT9JixOPj1oq9VJ0GGhZYLvWsk3sUWkqs2eW5DtgX29iAg==}
+
+  '@aws-cdk/asset-kubectl-v20@2.1.4':
+    resolution: {integrity: sha512-Ps2MkmjYgMyflagqQ4dgTElc7Vwpqj8spw8dQVFiSeaaMPsuDSNsPax3/HjuDuwqsmLdaCZc6umlxYLpL0kYDA==}
+
+  '@aws-cdk/asset-node-proxy-agent-v6@2.1.0':
+    resolution: {integrity: sha512-7bY3J8GCVxLupn/kNmpPc5VJz8grx+4RKfnnJiO1LG+uxkZfANZG3RMHhE+qQxxwkyQ9/MfPtTpf748UhR425A==}
 
   '@babel/code-frame@7.27.1':
     resolution: {integrity: sha512-cjQ7ZlQ0Mv3b47hABuTevyTuYN4i+loJKGeV9flcCgIK37cCXRh+L1bd3iBHlynerhQ7BhCkn2BPbQUL+rGqFg==}
@@ -852,8 +861,8 @@ packages:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
 
-  aws-cdk-lib@2.1.0:
-    resolution: {integrity: sha512-W607G3aSrWpawpcqzIuUYKlU+grfvkbszyqikyVYqJgMHFCCQXq0S1ynPMzfQ49CwjlwZsu4LIsPM+dNR+Yj6g==}
+  aws-cdk-lib@2.147.3:
+    resolution: {integrity: sha512-GX07otmLydgR3CX51OaDtDr/MXRbsl9HZ2txVQpEV3pkF0UpJVc7XLShYuHmVv0uyStnAQfEN6W89cXMK64Nlg==}
     engines: {node: '>= 14.15.0'}
     peerDependencies:
       constructs: ^10.0.0
@@ -866,7 +875,9 @@ packages:
       - minimatch
       - punycode
       - semver
+      - table
       - yaml
+      - mime-types
 
   babel-jest@30.0.5:
     resolution: {integrity: sha512-mRijnKimhGDMsizTvBTWotwNpzrkHr+VvZUQBof2AufXKB8NXrL1W69TG20EvOz7aevx6FTJIaBuBkYxS8zolg==}
@@ -3191,6 +3202,12 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
       lru-cache: 10.4.3
 
+  '@aws-cdk/asset-awscli-v1@2.2.248': {}
+
+  '@aws-cdk/asset-kubectl-v20@2.1.4': {}
+
+  '@aws-cdk/asset-node-proxy-agent-v6@2.1.0': {}
+
   '@babel/code-frame@7.27.1':
     dependencies:
       '@babel/helper-validator-identifier': 7.27.1
@@ -4108,8 +4125,11 @@ snapshots:
     dependencies:
       possible-typed-array-names: 1.1.0
 
-  aws-cdk-lib@2.1.0(constructs@10.0.5):
+  aws-cdk-lib@2.147.3(constructs@10.0.5):
     dependencies:
+      '@aws-cdk/asset-awscli-v1': 2.2.248
+      '@aws-cdk/asset-kubectl-v20': 2.1.4
+      '@aws-cdk/asset-node-proxy-agent-v6': 2.1.0
       constructs: 10.0.5
 
   babel-jest@30.0.5(@babel/core@7.28.0):

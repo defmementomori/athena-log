@@ -1,5 +1,5 @@
 {
-  "name": "athena-log",
+  "name": "cdk-athena-log",
   "description": "A CDK construct to create an Athena table for querying ALB logs.",
   "repository": {
     "type": "git",
@@ -40,7 +40,7 @@
     "@types/node": "^24.2.1",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "aws-cdk-lib": "2.1.0",
+    "aws-cdk-lib": "2.147.3",
     "commit-and-tag-version": "^12",
     "constructs": "10.0.5",
     "eslint": "^9",
@@ -59,7 +59,7 @@
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.1.0",
+    "aws-cdk-lib": "^2.147.3",
     "constructs": "^10.0.5"
   },
   "pnpm": {},
