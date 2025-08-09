@@ -41,8 +41,12 @@ export class AthenaTableForVpcFlowLog extends Construct {
     const { logBucketName, databaseName, tableName, logPrefix } = props;
 
     const stack = Stack.of(this);
+    const account = stack.account;
+    const region = stack.region;
+
+    // Standard path structure for VPC Flow Logs
     const s3LocationPrefix = logPrefix ? `${logPrefix}/` : '';
-    const s3Location = `s3://${logBucketName}/${s3LocationPrefix}AWSLogs/`;
+    const s3Location = `s3://${logBucketName}/${s3LocationPrefix}AWSLogs/${account}/vpcflowlogs/${region}/`;
 
     this.table = new glue.CfnTable(this, 'Default', {
       catalogId: stack.account,
@@ -53,14 +57,11 @@ export class AthenaTableForVpcFlowLog extends Construct {
         parameters: {
           'skip.header.line.count': '1',
         },
+        // Corrected partition keys to match the actual S3 folder structure
         partitionKeys: [
-          { name: 'aws-account-id', type: 'string' },
-          { name: 'aws-service', type: 'string' },
-          { name: 'aws-region', type: 'string' },
           { name: 'year', type: 'string' },
           { name: 'month', type: 'string' },
           { name: 'day', type: 'string' },
-          { name: 'hour', type: 'string' },
         ],
         storageDescriptor: {
           columns: [
