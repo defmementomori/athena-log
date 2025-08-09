@@ -3,7 +3,6 @@ import { Construct } from 'constructs';
 
 /**
  * Properties for the AthenaTableForVpcFlowLog construct.
- * This construct requires manual partition updates using MSCK REPAIR TABLE.
  */
 export interface AthenaTableForVpcFlowLogProps {
   /**
@@ -23,7 +22,7 @@ export interface AthenaTableForVpcFlowLogProps {
 
   /**
    * The prefix within the S3 bucket where logs are located, before the /AWSLogs/ part.
-   * e.g., if logs are at `s3://<bucket>/vpc-logs/AWSLogs/...`, specify 'vpc-logs'.
+   * e.g., if logs are at `s3://<bucket>/your-prefix/AWSLogs/`
    * @default No prefix is used.
    */
   readonly logPrefix?: string;
@@ -43,7 +42,6 @@ export class AthenaTableForVpcFlowLog extends Construct {
 
     const stack = Stack.of(this);
     const s3LocationPrefix = logPrefix ? `${logPrefix}/` : '';
-    // The base location for the logs. Partitions will be discovered by MSCK REPAIR.
     const s3Location = `s3://${logBucketName}/${s3LocationPrefix}AWSLogs/`;
 
     this.table = new glue.CfnTable(this, 'Default', {
@@ -51,41 +49,52 @@ export class AthenaTableForVpcFlowLog extends Construct {
       databaseName: databaseName,
       tableInput: {
         name: tableName,
-        description: 'Table for querying VPC Flow Logs (requires MSCK REPAIR)',
         tableType: 'EXTERNAL_TABLE',
         parameters: {
-          // This property is for text-based formats and should not affect Parquet,
-          // but can be useful if the source format changes.
           'skip.header.line.count': '1',
         },
-        // Partition keys define the folder structure Athena will look for.
-        // These names do NOT appear in the columns list below.
         partitionKeys: [
+          { name: 'aws-account-id', type: 'string' },
+          { name: 'aws-service', type: 'string' },
+          { name: 'aws-region', type: 'string' },
           { name: 'year', type: 'string' },
           { name: 'month', type: 'string' },
           { name: 'day', type: 'string' },
+          { name: 'hour', type: 'string' },
         ],
         storageDescriptor: {
-          // Standard VPC Flow Log column format.
           columns: [
-            { name: 'version', type: 'string' },
+            { name: 'version', type: 'int' },
             { name: 'account_id', type: 'string' },
             { name: 'interface_id', type: 'string' },
             { name: 'srcaddr', type: 'string' },
             { name: 'dstaddr', type: 'string' },
-            { name: 'srcport', type: 'string' },
-            { name: 'dstport', type: 'string' },
-            { name: 'protocol', type: 'string' },
-            { name: 'packets', type: 'string' },
-            { name: 'bytes', type: 'string' },
-            { name: 'start', type: 'string' },
-            { name: 'end', type: 'string' },
+            { name: 'srcport', type: 'int' },
+            { name: 'dstport', type: 'int' },
+            { name: 'protocol', type: 'bigint' },
+            { name: 'packets', type: 'bigint' },
+            { name: 'bytes', type: 'bigint' },
+            { name: 'start', type: 'bigint' },
+            { name: 'end', type: 'bigint' },
             { name: 'action', type: 'string' },
             { name: 'log_status', type: 'string' },
-            // Additional fields can be added here if you use a custom log format.
+            { name: 'vpc_id', type: 'string' },
+            { name: 'subnet_id', type: 'string' },
+            { name: 'instance_id', type: 'string' },
+            { name: 'tcp_flags', type: 'int' },
+            { name: 'type', type: 'string' },
+            { name: 'pkt_srcaddr', type: 'string' },
+            { name: 'pkt_dstaddr', type: 'string' },
+            { name: 'region', type: 'string' },
+            { name: 'az_id', type: 'string' },
+            { name: 'sublocation_type', type: 'string' },
+            { name: 'sublocation_id', type: 'string' },
+            { name: 'pkt_src_aws_service', type: 'string' },
+            { name: 'pkt_dst_aws_service', type: 'string' },
+            { name: 'flow_direction', type: 'string' },
+            { name: 'traffic_path', type: 'int' },
           ],
           location: s3Location,
-          // Settings for Parquet Format, as it's common for Flow Logs
           inputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat',
           outputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat',
           serdeInfo: {
