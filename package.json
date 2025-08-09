@@ -1,5 +1,6 @@
 {
   "name": "athena-log",
+  "description": "A CDK construct to create an Athena table for querying ALB logs.",
   "repository": {
     "type": "git",
     "url": "https://github.com/defmementomori/athena-log.git"
@@ -63,7 +64,12 @@
   },
   "pnpm": {},
   "keywords": [
-    "cdk"
+    "alb",
+    "athena",
+    "aws",
+    "cdk",
+    "glue",
+    "logs"
   ],
   "main": "lib/index.js",
   "license": "Apache-2.0",

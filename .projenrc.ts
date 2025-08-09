@@ -1,4 +1,4 @@
-import { awscdk } from 'projen';
+import { awscdk, javascript } from 'projen';
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'defmementomori',
   authorAddress: 'defmementomori@gmail.com',
@@ -11,5 +11,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // 以下はConstruct Hubでの見つけやすさのために重要
   description: 'A CDK construct to create an Athena table for querying ALB logs.',
   keywords: ['aws', 'cdk', 'athena', 'alb', 'logs', 'glue'],
+  packageManager: javascript.NodePackageManager.PNPM,
 });
 project.synth();
