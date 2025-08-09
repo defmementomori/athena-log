@@ -41,8 +41,6 @@ export class AthenaTableForVpcFlowLog extends Construct {
 
     const stack = Stack.of(this);
 
-    // *** 修正点 ***
-    // ご提示いただいた通りのS3ロケーションパスを構築します。
     const s3Location = `s3://${logBucketName}/${logPrefix}/AWSLogs/`;
 
     this.table = new glue.CfnTable(this, 'Default', {
@@ -54,7 +52,6 @@ export class AthenaTableForVpcFlowLog extends Construct {
         parameters: {
           'skip.header.line.count': '1',
         },
-        // パーティションキーは、ご提示いただいたS3パス内のフォルダ構造に合わせています。
         partitionKeys: [
           { name: 'aws-account-id', type: 'string' },
           { name: 'aws-service', type: 'string' },
