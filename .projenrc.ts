@@ -5,13 +5,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
   cdkVersion: '2.1.0',
   defaultReleaseBranch: 'main',
   jsiiVersion: '~5.8.0',
-  name: 'athena-alb-log',
+  name: 'athena-log',
   projenrcTs: true,
-  repositoryUrl: 'https://github.com/defmementomori/athena-alb-log.git',
-
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  repositoryUrl: 'https://github.com/defmementomori/athena-log.git',
+  // 以下はConstruct Hubでの見つけやすさのために重要
+  description: 'A CDK construct to create an Athena table for querying ALB logs.',
+  keywords: ['aws', 'cdk', 'athena', 'alb', 'logs', 'glue'],
 });
 project.synth();

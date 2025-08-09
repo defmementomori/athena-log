@@ -1,5 +1,2 @@
-export class Hello {
-  public sayHello() {
-    return 'hello, world!';
-  }
-}
+// src/index.ts
+export * from './athena-table-for-alb';

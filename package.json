@@ -1,8 +1,8 @@
 {
-  "name": "athena-alb-log",
+  "name": "athena-log",
   "repository": {
     "type": "git",
-    "url": "https://github.com/defmementomori/athena-alb-log.git"
+    "url": "https://github.com/defmementomori/athena-log.git"
   },
   "scripts": {
     "build": "npx projen build",
