@@ -39,7 +39,7 @@ export class AthenaTableForWaf extends Construct {
     const s3BaseLocation = `s3://${logBucketName}/${s3Prefix}AWSLogs/`;
 
     // ★ 決定したlogRegionをテンプレートパスに使用
-    const s3LocationTemplate = `${s3BaseLocation}${account}/WAFLogs/${logRegion}/\${webacl}/\${year}/\${month}/\${day}/\${hour}/\${minute}/`;
+    const s3LocationTemplate = `${s3BaseLocation}${account}/WAFLogs/${logRegion.toLowerCase()}/\${webacl}/\${year}/\${month}/\${day}/\${hour}/\${minute}/`;
 
     this.table = new glue.CfnTable(this, 'Default', {
       catalogId: account,
