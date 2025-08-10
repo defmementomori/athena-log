@@ -726,6 +726,7 @@ const athenaTableForWafProps: AthenaTableForWafProps = { ... }
 | --- | --- | --- |
 | <code><a href="#cdk-athena-log.AthenaTableForWafProps.property.databaseName">databaseName</a></code> | <code>string</code> | Glueデータベース名. |
 | <code><a href="#cdk-athena-log.AthenaTableForWafProps.property.logBucketName">logBucketName</a></code> | <code>string</code> | S3に保存されたWAFログのバケット名. |
+| <code><a href="#cdk-athena-log.AthenaTableForWafProps.property.projectionStartDate">projectionStartDate</a></code> | <code>string</code> | ★ パーティション射影の開始日 (yyyy/MM/dd形式). |
 | <code><a href="#cdk-athena-log.AthenaTableForWafProps.property.tableName">tableName</a></code> | <code>string</code> | 作成するGlueテーブル名. |
 | <code><a href="#cdk-athena-log.AthenaTableForWafProps.property.wafScope">wafScope</a></code> | <code>string</code> | WAFのスコープを指定します。 'REGIONAL' または 'CLOUDFRONT'. |
 | <code><a href="#cdk-athena-log.AthenaTableForWafProps.property.webAclName">webAclName</a></code> | <code>string</code> | クエリ対象のWeb ACL名. |
@@ -756,6 +757,25 @@ public readonly logBucketName: string;
 S3に保存されたWAFログのバケット名.
 
 ---
+
+##### `projectionStartDate`<sup>Required</sup> <a name="projectionStartDate" id="cdk-athena-log.AthenaTableForWafProps.property.projectionStartDate"></a>
+
+```typescript
+public readonly projectionStartDate: string;
+```
+
+- *Type:* string
+
+★ パーティション射影の開始日 (yyyy/MM/dd形式).
+
+---
+
+*Example*
+
+```typescript
+'2025/08/11'
+```
+
 
 ##### `tableName`<sup>Required</sup> <a name="tableName" id="cdk-athena-log.AthenaTableForWafProps.property.tableName"></a>
 
