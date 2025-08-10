@@ -63,7 +63,6 @@ export class AthenaTableForWaf extends Construct {
           'projection.enabled': 'true',
           'projection.log_time.type': 'date',
           'projection.log_time.format': 'yyyy/MM/dd/HH/mm',
-          // ★ projectionStartDate を使用して範囲の開始日時を動的に設定
           'projection.log_time.range': `${projectionStartDate}/00/00,NOW`,
           'projection.log_time.interval': '1',
           'projection.log_time.interval.unit': 'MINUTES',
@@ -83,12 +82,12 @@ export class AthenaTableForWaf extends Construct {
             { name: 'httpsourceid', type: 'string' },
             {
               name: 'rulegrouplist',
-              type: 'array<struct<rulegroupid:string,terminatingrule:struct<ruleid:string,action:string,rulematchdetails:array<struct<conditiontype:string,sensitivitylevel:string,location:string,matcheddata:array<string>>>>,nonterminatingmatchingrules:array<struct<ruleid:string,action:string,overriddenaction:string,rulematchdetails:array<struct<conditiontype:string,sensitivitylevel:string,location:string,matcheddata:array<string>>>,challengeresponse:struct<responsecode:string,solvetimestamp:string>,captcharesponse:struct<responsecode:string,solvetimestamp:string>>>,excludedrules:string>>',
+              type: 'array<struct<rulegroupid:string,terminatingrule:struct<ruleid:string,action:string,rulematchdetails:string>,nonterminatingmatchingrules:array<struct<ruleid:string,action:string,rulematchdetails:string>>,excludedrules:string>>',
             },
             { name: 'ratebasedrulelist', type: 'array<struct<ratebasedruleid:string,limitkey:string,maxrateallowed:int>>' },
             {
               name: 'nonterminatingmatchingrules',
-              type: 'array<struct<ruleid:string,action:string,rulematchdetails:array<struct<conditiontype:string,sensitivitylevel:string,location:string,matcheddata:array<string>>>,challengeresponse:struct<responsecode:string,solvetimestamp:string>,captcharesponse:struct<responsecode:string,solvetimestamp:string>>',
+              type: 'array<struct<ruleid:string,action:string,rulematchdetails:string>>',
             },
             { name: 'requestheadersinserted', type: 'array<struct<name:string,value:string>>' },
             { name: 'responsecodesent', type: 'string' },
