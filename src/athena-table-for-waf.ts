@@ -12,7 +12,7 @@ export interface AthenaTableForWafProps {
    * WAFのスコープを指定します。
    * 'REGIONAL' または 'CLOUDFRONT'
    */
-  readonly scope: 'REGIONAL' | 'CLOUDFRONT';
+  readonly wafScope: 'REGIONAL' | 'CLOUDFRONT';
   /** クエリ対象のWeb ACL名 */
   readonly webAclName: string;
   /**
@@ -38,7 +38,7 @@ export class AthenaTableForWaf extends Construct {
       logBucketName,
       databaseName,
       tableName,
-      scope,
+      wafScope,
       webAclName,
       projectionStartDate, // ★ プロパティを受け取る
       logPrefix,
@@ -47,7 +47,7 @@ export class AthenaTableForWaf extends Construct {
     const stack = Stack.of(this);
     const account = stack.account;
 
-    const logRegion = scope === 'CLOUDFRONT' ? 'cloudfront' : stack.region;
+    const logRegion = wafScope === 'CLOUDFRONT' ? 'cloudfront' : stack.region;
 
     const s3Prefix = logPrefix ? `${logPrefix}/` : '';
     const s3BaseLocation = `s3://${logBucketName}/${s3Prefix}AWSLogs/${account}/WAFLogs/${logRegion}/${webAclName}/`;
