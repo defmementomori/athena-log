@@ -58,7 +58,7 @@ export class AthenaTableForCloudFront extends Construct {
         parameters: {
           'projection.enabled': 'true',
           'projection.year.type': 'integer',
-          'projection.year.range': projectionStartDate.substring(0, 4) + ',NOW',
+          'projection.year.range': projectionStartDate.substring(0, 4) + ',2200',
           'projection.month.type': 'integer',
           'projection.month.range': '01,12',
           'projection.day.type': 'integer',
