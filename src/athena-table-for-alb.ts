@@ -76,8 +76,8 @@ export class AthenaTableForAlb extends Construct {
           'projection.day.interval': '1',
           'projection.day.interval.unit': 'DAYS',
           'storage.location.template': `${s3Location}\${day}/`,
-          EXTERNAL: 'TRUE',
-          has_encrypted_data: 'false',
+          'EXTERNAL': 'TRUE',
+          'has_encrypted_data': 'false',
         },
         partitionKeys: [{ name: 'day', type: 'string' }],
         storageDescriptor: {

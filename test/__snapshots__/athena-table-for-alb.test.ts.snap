@@ -25,7 +25,7 @@ exports[`Snapshot Test for AthenaTableForAlb 1`] = `
             "projection.day.format": "yyyy/MM/dd",
             "projection.day.interval": "1",
             "projection.day.interval.unit": "DAYS",
-            "projection.day.range": "2025-08-01,2200",
+            "projection.day.range": "2025-08-01,NOW",
             "projection.day.type": "date",
             "projection.enabled": "true",
             "storage.location.template": {
