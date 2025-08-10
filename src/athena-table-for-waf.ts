@@ -57,7 +57,6 @@ export class AthenaTableForWaf extends Construct {
         },
         partitionKeys: [{ name: 'log_time', type: 'string' }],
         storageDescriptor: {
-          // 公式ドキュメントのスキーマ定義に更新
           columns: [
             { name: 'timestamp', type: 'bigint' },
             { name: 'formatversion', type: 'int' },
