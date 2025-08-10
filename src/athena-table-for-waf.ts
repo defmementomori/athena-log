@@ -85,10 +85,7 @@ export class AthenaTableForWaf extends Construct {
               type: 'array<struct<rulegroupid:string,terminatingrule:struct<ruleid:string,action:string,rulematchdetails:string>,nonterminatingmatchingrules:array<struct<ruleid:string,action:string,rulematchdetails:string>>,excludedrules:string>>',
             },
             { name: 'ratebasedrulelist', type: 'array<struct<ratebasedruleid:string,limitkey:string,maxrateallowed:int>>' },
-            {
-              name: 'nonterminatingmatchingrules',
-              type: 'array<struct<ruleid:string,action:string,rulematchdetails:string>>',
-            },
+            { name: 'nonterminatingmatchingrules', type: 'array<struct<ruleid:string,action:string,rulematchdetails:string>>' },
             { name: 'requestheadersinserted', type: 'array<struct<name:string,value:string>>' },
             { name: 'responsecodesent', type: 'string' },
             {
@@ -105,6 +102,8 @@ export class AthenaTableForWaf extends Construct {
             { name: 'requestbodysizeinspectedbywaf', type: 'int' },
           ],
           location: s3BaseLocation,
+          inputFormat: 'org.apache.hadoop.mapred.TextInputFormat',
+          outputFormat: 'org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat',
           serdeInfo: {
             serializationLibrary: 'org.openx.data.jsonserde.JsonSerDe',
           },
