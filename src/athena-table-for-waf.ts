@@ -12,9 +12,13 @@ export interface AthenaTableForWafProps {
    * WAFのスコープを指定します。
    * 'REGIONAL' または 'CLOUDFRONT'
    */
-  readonly wafScope: 'REGIONAL' | 'CLOUDFRONT';
+  readonly scope: 'REGIONAL' | 'CLOUDFRONT';
   /** クエリ対象のWeb ACL名 */
   readonly webAclName: string;
+  /**
+   * ★ パーティション射影の開始日 (yyyy/MM/dd形式)
+   * @example '2025/08/11'
+   */
   readonly projectionStartDate: string;
   /** バケット内のオプションのプレフィックス */
   readonly logPrefix?: string;
@@ -30,12 +34,20 @@ export class AthenaTableForWaf extends Construct {
   constructor(scope: Construct, id: string, props: AthenaTableForWafProps) {
     super(scope, id);
 
-    const { logBucketName, databaseName, tableName, wafScope, webAclName, logPrefix, projectionStartDate } = props;
+    const {
+      logBucketName,
+      databaseName,
+      tableName,
+      scope,
+      webAclName,
+      projectionStartDate, // ★ プロパティを受け取る
+      logPrefix,
+    } = props;
 
     const stack = Stack.of(this);
     const account = stack.account;
 
-    const logRegion = wafScope === 'CLOUDFRONT' ? 'cloudfront' : stack.region;
+    const logRegion = scope === 'CLOUDFRONT' ? 'cloudfront' : stack.region;
 
     const s3Prefix = logPrefix ? `${logPrefix}/` : '';
     const s3BaseLocation = `s3://${logBucketName}/${s3Prefix}AWSLogs/${account}/WAFLogs/${logRegion}/${webAclName}/`;
@@ -51,6 +63,7 @@ export class AthenaTableForWaf extends Construct {
           'projection.enabled': 'true',
           'projection.log_time.type': 'date',
           'projection.log_time.format': 'yyyy/MM/dd/HH/mm',
+          // ★ projectionStartDate を使用して範囲の開始日時を動的に設定
           'projection.log_time.range': `${projectionStartDate}/00/00,NOW`,
           'projection.log_time.interval': '1',
           'projection.log_time.interval.unit': 'MINUTES',
